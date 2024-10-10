@@ -6,6 +6,9 @@ import { SplitText } from "./Welcome/SplitText";
 import Zoom from '@mui/material/Zoom';
 
 
+const api_url = import.meta.env.VITE_SERVER_URL
+
+
 function Login(props) {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -22,9 +25,8 @@ function Login(props) {
 
   async function handleLogin() {
     try {
-      const response = await axios.get("http://localhost:3000/api/");
+      const response = await axios.get(api_url);
       const users = response.data
-      const userInput = details
       try {
         const currentUser = users.find(user => user.username == details.username)
         const userPassword = currentUser.password
@@ -63,7 +65,7 @@ function Login(props) {
   async function handleRegister () {
     if (details.password === details.confirmPassword) {
       try {
-        await axios.post("http://localhost:3000/api/register", details);
+        await axios.post(api_url + "register", details);
         setDetails({
           username: "",
           password: "",

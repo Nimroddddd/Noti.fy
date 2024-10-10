@@ -30,11 +30,11 @@ app.use(cors())
 app.use(bodyParser.json())
 
 
-app.get("/api/", (req, res) => {
+app.get("/", (req, res) => {
   res.json(users)
 })
 
-app.post("/api/register", (req, res) => {
+app.post("/register", (req, res) => {
   try {
     const {username: newUsername, password: newPassword} = req.body;
     const checkUser = users.find(user => user.username == newUsername)
