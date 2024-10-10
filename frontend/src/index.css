@@ -41,3 +41,25 @@ html {
   height: 100vh;
   width: 100%;
 }
+
+@media (max-width:920px) and (min-width:625px) {
+  .welcome {
+    font-size: 25px;
+  }
+
+  .action {
+    flex-direction: row; 
+  }
+
+  .login {
+    width: 30%;
+    margin: 200px 35%;
+  }
+}
+
+@media (max-width:624px) {
+  .login {
+    width: 40%;
+    margin: 200px 30%;
+  }
+}
