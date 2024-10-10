@@ -18,7 +18,12 @@ html {
 .action {
   display: flex;
   flex-direction: row;
-  gap: 15px;
+  gap: 6%;
+  
+}
+
+.action button {
+  width: 47%;
 }
 
 .welcome {
@@ -61,5 +66,20 @@ html {
   .login {
     width: 40%;
     margin: 200px 30%;
+  }
+
+  .welcome {
+    font-size: 22px;
+  }
+}
+
+@media (max-width:409px) {
+  .action {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .action button {
+    width: 100%;
   }
 }
