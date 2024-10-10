@@ -31,10 +31,12 @@ app.use(bodyParser.json())
 
 
 app.get("/", (req, res) => {
+  console.log("A login was triggered")
   res.json(users)
 })
 
 app.post("/register", (req, res) => {
+  console.log(req.body)
   try {
     const {username: newUsername, password: newPassword} = req.body;
     const checkUser = users.find(user => user.username == newUsername)
