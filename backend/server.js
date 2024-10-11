@@ -8,18 +8,13 @@ const port = 3000
 let users = [
   {
     id: 1,
-    username: "amin",
+    username: "admin",
     password: "bala"
   },
   {
     id: 2,
-    username: "faiz",
+    username: "second admin",
     password: "kante"
-  },
-  {
-    id: 3,
-    username: "maryam",
-    password: "jimoh"
   }
 ]
 
