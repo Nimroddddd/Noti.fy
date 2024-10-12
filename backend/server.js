@@ -8,21 +8,10 @@ import fs from 'fs';
 
 const app = express()
 const port = 3000
-// let users = [
-//   {
-//     id: 1,
-//     username: "admin",
-//     password: "bala"
-//   },
-//   {
-//     id: 2,
-//     username: "second admin",
-//     password: "kante"
-//   }
-// ]
+
 env.config()
 let users = []
-let notes = ["first post", "second post", "third post"]
+let notes = []
 let currentID = 3
 const db = new pg.Client({
   user: process.env.PG_USER,
@@ -30,7 +19,6 @@ const db = new pg.Client({
   database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
-  // connectionString: process.env.PG_URL,
   ssl: {
     rejectUnauthorized: false,
     required: true,
