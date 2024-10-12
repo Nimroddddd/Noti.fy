@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import pg from "pg";
+import env from "dotenv"
 
 
 const app = express()
@@ -18,21 +19,25 @@ const port = 3000
 //     password: "kante"
 //   }
 // ]
+env.config()
 let users = []
 let notes = ["first post", "second post", "third post"]
 let currentID = 3
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "notes",
-  password: "shawarma",
-  port: 5432
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+  ssl: {
+    rejectUnauthorized: false,
+    required: true
+  },
 });
 
 //middleware
 app.use(cors())
 app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: true }))
 db.connect()
 
 

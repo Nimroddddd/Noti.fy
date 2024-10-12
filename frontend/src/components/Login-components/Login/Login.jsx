@@ -6,6 +6,7 @@ import { SplitText } from "./Welcome/SplitText";
 import Zoom from '@mui/material/Zoom';
 
 
+
 const api_url = import.meta.env.VITE_SERVER_URL
 
 
@@ -108,9 +109,7 @@ function Login(props) {
     })
   }
 
-  return isAuthenticated ? 
-  <div className="center"><SplitText text={greeting} className="welcome-message" delay={50} /></div> :
-  (
+  return (
     <div className="login">
       <SplitText text="Welcome!" className="welcome" delay={50} />
       <TextField name="username" onChange={handleChange} value={details.username} id="outlined-basic" label="Username" variant="outlined" />
@@ -140,6 +139,7 @@ function Login(props) {
         <h2 style={{color: remark ? "green" : "red"}}>{loginError}</h2>
     </div>
   )
+  
 }
 
 export default Login;

@@ -41,12 +41,14 @@ body {
 li {
   font-size: 20px;
   margin-bottom: 10px;
-  /* float: left; */
-  /* margin: 0; */
 }
 
 .add-icon {
   margin-bottom: 20px;
+}
+
+h1 {
+  margin-left: 10px;
 }
 
 

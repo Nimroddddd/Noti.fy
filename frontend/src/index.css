@@ -1,4 +1,4 @@
-html {
+:root {
   background-color: #00A896;
 }
 
@@ -11,7 +11,7 @@ html {
   display: flex;
   flex-direction: column;
   width: 20%;
-  margin: 250px 40%;
+  margin: 150px 40%;
   gap: 15px;
 }
 
@@ -32,6 +32,7 @@ html {
   text-align: center;
 }
 
+
 .welcome-message {
   font-size: 70px;
   text-align: center;
@@ -45,6 +46,10 @@ html {
   align-items: center;
   height: 100vh;
   width: 100%;
+}
+
+.welcome-back {
+  margin-left: 150px;
 }
 
 @media (max-width:920px) and (min-width:625px) {

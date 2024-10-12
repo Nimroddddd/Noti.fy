@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import axios from 'axios'
 import Notes from "./Notes";
-import './index.css'
+import './App.css'
 
 function ToDoApp (props) {
 
@@ -42,7 +42,7 @@ function ToDoApp (props) {
 
   return (
     <div>
-      <Header />
+      <Header user={props.user} loggedIn={props.loggedIn} />
       <Notes items={noteList} value={input} handleInputChange={handleInputChange} onAdd={handleAdd} handleComplete={handleComplete} />
     </div>
   )

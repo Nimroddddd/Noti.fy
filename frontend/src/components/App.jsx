@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Login from "./Login/Login";
-import ToDoApp from "./app-components/App";
+// import Login from "./Login-components/Login/Login";
+import ToDoApp from "./app-components/ToDoApp";
+import LoginApp from "./Login-components/LoginApp";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -12,7 +13,7 @@ function App() {
     console.log(user)
   }
 
-  return isAuthenticated ? <ToDoApp user={currentUser} /> : <Login authentication={handleAuthentication} />
+  return isAuthenticated ? <ToDoApp user={currentUser} loggedIn={isAuthenticated} /> : <LoginApp authentication={handleAuthentication} loggedIn={isAuthenticated} />
 }
 
 export default App;
