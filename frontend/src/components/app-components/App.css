@@ -1,5 +1,6 @@
 :root {
   background-color: #00a896;
+  color: #66fcf1;
 }
 
 body {
@@ -9,11 +10,30 @@ body {
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 0;
-  background-color: orange;
+  background-color: #0b0c10;
   height: 13vh;
-  padding-left: 5%;
-  color: blue;
+  padding: 0 10%;
+  color: #66fcf1;
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 32px;
+}
+
+.header div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+footer {
+  margin-top: 100px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 1.1rem;
 }
 
 .notes {
@@ -22,11 +42,15 @@ body {
   min-height: 50vh;
   height: 100%;
   width: 50%;
-  border: 1px solid black;
+  border: 2px outset #45a29e;
+  border-width: medium;
   margin: 30px 25%;
-  background-color: #009da8;
+  box-shadow: 1px 1px 8px;
   border-radius: 2%;
   padding: 20px 5%;
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
 
 }
 
@@ -51,6 +75,11 @@ h1 {
   margin-left: 10px;
 }
 
+@media (max-width:850px) {
+  .header {
+    font-size: 18px;
+  }
+}
 
 
 

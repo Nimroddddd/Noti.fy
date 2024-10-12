@@ -7,9 +7,11 @@ function Header(props) {
  
   return (
     <div className="header">
-      <AutoStoriesIcon fontSize="large"/>
-      <h1>My To-Do List</h1>
-      {props.loggedIn && <h2 className="welcome-back">Welcome back, {props.user}!</h2>}
+      <div>
+        <AutoStoriesIcon fontSize="large"/>
+        <h1>Noti.fy</h1>
+      </div>
+      {props.loggedIn && <h2>Welcome back, {props.user}!</h2>}
     </div>
   )
 }

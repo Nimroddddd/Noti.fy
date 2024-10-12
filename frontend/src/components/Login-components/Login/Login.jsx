@@ -112,9 +112,10 @@ function Login(props) {
   return (
     <div className="login">
       <SplitText text="Welcome!" className="welcome" delay={50} />
-      <TextField name="username" onChange={handleChange} value={details.username} id="outlined-basic" label="Username" variant="outlined" />
+      <TextField style={{backgroundColor: "#66fcf1"}} name="username" onChange={handleChange} value={details.username} id="outlined-basic" label="Username" variant="outlined" />
       <TextField
           name="password"
+          style={{backgroundColor: "#66fcf1"}}
           id="outlined-password-input"
           label="Password"
           type="password"

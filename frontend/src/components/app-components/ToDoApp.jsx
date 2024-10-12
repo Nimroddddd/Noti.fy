@@ -3,6 +3,7 @@ import Header from "./Header";
 import axios from 'axios'
 import Notes from "./Notes";
 import './App.css'
+import Footer from "./Footer";
 
 function ToDoApp (props) {
 
@@ -44,6 +45,7 @@ function ToDoApp (props) {
     <div>
       <Header user={props.user} loggedIn={props.loggedIn} />
       <Notes items={noteList} value={input} handleInputChange={handleInputChange} onAdd={handleAdd} handleComplete={handleComplete} />
+      <Footer />
     </div>
   )
 }

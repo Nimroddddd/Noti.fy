@@ -1,5 +1,7 @@
 :root {
-  background-color: #00A896;
+  background-color: #1f2833;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+
 }
 
 .form{
@@ -32,13 +34,6 @@
   text-align: center;
 }
 
-
-.welcome-message {
-  font-size: 70px;
-  text-align: center;
-  color: white;
-}
-
 .center {
   display: flex;
   flex-direction: row;
@@ -48,9 +43,7 @@
   width: 100%;
 }
 
-.welcome-back {
-  margin-left: 150px;
-}
+
 
 @media (max-width:920px) and (min-width:625px) {
   .welcome {
