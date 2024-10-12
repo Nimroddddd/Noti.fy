@@ -33,7 +33,7 @@ function Login(props) {
         if (details.password == userPassword) {
           setGreeting(`Hello ${currentUser.username}`)
           console.log(greeting)
-          setIsAuthenticated(true)
+          props.authentication(currentUser.username)
           
         } else {
           console.log("wrong password")
