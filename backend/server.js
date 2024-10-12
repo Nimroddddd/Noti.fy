@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import pg from "pg";
-import env from "dotenv"
+import env from "dotenv";
+import fs from 'fs';
 
 
 const app = express()
@@ -29,9 +30,11 @@ const db = new pg.Client({
   database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
+  // connectionString: process.env.PG_URL,
   ssl: {
     rejectUnauthorized: false,
-    required: true
+    required: true,
+    ca: fs.readFileSync("ca.pem").toString()
   },
 });
 
