@@ -6,6 +6,8 @@ import { SplitText } from "./Welcome/SplitText";
 import Zoom from '@mui/material/Zoom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useForm } from "react-hook-form"
+
 
 
 
@@ -107,7 +109,7 @@ function Login(props) {
 
   function handleRegisterClick(event) {
     console.log(event.target)
-    setLoginIntention(false)
+    setLoginIntention(prev => !prev)
     event.preventDefault();
   }
 
@@ -157,7 +159,7 @@ function Login(props) {
           onKeyDown={handleEnter}
         /></Zoom>}
         <Button variant="contained" onClick={loginIntention ? handleLogin : handleRegister}>{loginIntention ? "Login" : "Register"}</Button>
-        <p>Don't have an account? <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>Sign up here.</a></p>
+        {loginIntention ? <p>Don't have an account? <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>Sign up here.</a></p>: <p>Already have an account? <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>Login here.</a></p>}
         <ToastContainer />
     </div>
   )

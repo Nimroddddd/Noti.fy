@@ -13,7 +13,11 @@ function App() {
     console.log(user)
   }
 
-  return isAuthenticated ? <ToDoApp user={currentUser} loggedIn={isAuthenticated} /> : <LoginApp authentication={handleAuthentication} loggedIn={isAuthenticated} />
+  function handleLogout() {
+    setIsAuthenticated(false)
+  }
+
+  return isAuthenticated ? <ToDoApp user={currentUser} loggedIn={isAuthenticated} logout={handleLogout} /> : <LoginApp authentication={handleAuthentication} loggedIn={isAuthenticated} />
 }
 
 export default App;

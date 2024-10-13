@@ -4,6 +4,7 @@ import axios from 'axios'
 import Notes from "./Notes";
 import './App.css'
 import Footer from "./Footer";
+import Button from '@mui/material/Button';
 
 function ToDoApp (props) {
 
@@ -17,7 +18,6 @@ function ToDoApp (props) {
     const response = await axios.get(api_url + "notes/" + username);
     const result = response.data
     setNoteList(result)
-    console.log(result)
   }
 
   useEffect(() => {getNotes()}, [refreshState])
@@ -44,6 +44,7 @@ function ToDoApp (props) {
     <div>
       <Header user={props.user} loggedIn={props.loggedIn} />
       <Notes items={noteList} value={input} handleInputChange={handleInputChange} onAdd={handleAdd} handleComplete={handleComplete} />
+      <Button variant="contained" style={{margin: "20px 50%"}} onClick={props.logout}>Logout</Button>
       <Footer />
     </div>
   )
