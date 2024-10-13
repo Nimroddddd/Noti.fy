@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from "axios";
 import { SplitText } from "./Welcome/SplitText";
 import Zoom from '@mui/material/Zoom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -11,18 +13,29 @@ const api_url = import.meta.env.VITE_SERVER_URL
 
 
 function Login(props) {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [greeting, setGreeting] = useState("")
   const [loginError, setLoginError] = useState("")
   const [loginIntention, setLoginIntention] = useState(true)
-  const [remark, setRemark] = useState(false)
 
   const [details, setDetails] = useState({
     username: "",
     password: "",
     confirmPassword: "",
   })
+
+  function handleEnter(event) {
+    if (event.key === "Enter") {
+      loginIntention ? handleLogin() : handleRegister()
+    }
+  }
+
+  function Notify(error) {
+    if (loginError !== "") {
+      toast(loginError)
+      setLoginError("")
+    }
+  }
+
+  useEffect(() => {Notify()}, [loginError])
 
   async function handleLogin() {
     try {
@@ -32,13 +45,9 @@ function Login(props) {
         const currentUser = users.find(user => user.username == details.username)
         const userPassword = currentUser.password
         if (details.password == userPassword) {
-          setGreeting(`Hello ${currentUser.username}`)
-          console.log(greeting)
           props.authentication(currentUser.username)
-          
         } else {
-          console.log("wrong password")
-          setRemark(false)
+          // wrong password
           setLoginError("Incorrect Password. Try again.")
           setDetails({
             username: details.username,
@@ -46,9 +55,7 @@ function Login(props) {
           })
         }
       } catch (err) {
-        console.log(err)
-        console.log("User not found!")
-        setRemark(false)
+        // user not found
         setLoginError("User not found!")
         setDetails({
           username: "",
@@ -56,7 +63,7 @@ function Login(props) {
         })
       }
     } catch (err) {
-      setRemark(false)
+      // direct server down
       setLoginError("Server is down. Please try again later.")
     }
     
@@ -73,21 +80,22 @@ function Login(props) {
           confirmPassword: "",
         })
         setLoginIntention(true)
-        setRemark(true)
         setLoginError("Registration Successful!")
       } catch (err) {
         console.log(err.message)
-        setRemark(false)
-        setLoginError("User already exists!/Server is down")
-        setLoginIntention(true)
         setDetails({
           username: "",
           password: "",
           confirmPassword: "",
         })
+        setLoginIntention(true)
+        if (err.message === "Network Error") {
+          setLoginError("Server is down!")
+        } else {
+          setLoginError("User already exists!")
+        }
       }
     } else {
-      setRemark(false)
       setLoginError("Make sure you write the same password");
       setDetails({
         username: details.username,
@@ -95,8 +103,12 @@ function Login(props) {
         confirmPassword: "",
       })
     }
-    
-    
+  }
+
+  function handleRegisterClick(event) {
+    console.log(event.target)
+    setLoginIntention(false)
+    event.preventDefault();
   }
 
   function handleChange(event) {
@@ -112,7 +124,16 @@ function Login(props) {
   return (
     <div className="login">
       <SplitText text="Welcome!" className="welcome" delay={50} />
-      <TextField style={{backgroundColor: "#66fcf1"}} name="username" onChange={handleChange} value={details.username} id="outlined-basic" label="Username" variant="outlined" />
+      <TextField 
+          style={{backgroundColor: "#66fcf1"}} 
+          name="username" 
+          onChange={handleChange} 
+          value={details.username} 
+          id="outlined-basic" 
+          label="Username" 
+          variant="outlined"
+          onKeyDown={handleEnter}
+        />
       <TextField
           name="password"
           style={{backgroundColor: "#66fcf1"}}
@@ -122,22 +143,22 @@ function Login(props) {
           autoComplete="current-password"
           value={details.password}
           onChange={handleChange}
+          onKeyDown={handleEnter}
         />
       {!loginIntention && <Zoom in={true}><TextField
           name="confirmPassword"
           id="outlined-password-input"
           label="Confirm Password"
           type="password"
+          style={{backgroundColor: "#66fcf1"}}
           autoComplete="current-password"
           value={details.confirmPassword}
           onChange={handleChange}
+          onKeyDown={handleEnter}
         /></Zoom>}
-        <Button variant="contained" onClick={loginIntention ? handleLogin : handleRegister}>Submit</Button>
-        <div className="action">
-          <Button variant="contained" onClick={() => setLoginIntention(true)}>Login</Button>
-          <Button variant="contained" onClick={() => setLoginIntention(false)} >Register</Button>
-        </div>
-        <h2 style={{color: remark ? "green" : "red"}}>{loginError}</h2>
+        <Button variant="contained" onClick={loginIntention ? handleLogin : handleRegister}>{loginIntention ? "Login" : "Register"}</Button>
+        <p>Don't have an account? <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>Sign up here.</a></p>
+        <ToastContainer />
     </div>
   )
   

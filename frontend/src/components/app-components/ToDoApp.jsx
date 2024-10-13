@@ -34,7 +34,6 @@ function ToDoApp (props) {
   }
 
   async function handleComplete(id) {
-    // e.stopPropagation();
     console.log(id)
     await axios.delete(api_url + "notes/delete/" + id)
     setRefreshState(prev => {return !prev})
