@@ -3,16 +3,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import pg from "pg";
 import env from "dotenv";
-import fs from 'fs';
+import bcrypt from 'bcrypt'
 
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
+const saltRounds = 10;
 
 env.config()
 let users = []
-let notes = []
-let currentID = 3
 const db = new pg.Client({
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -32,13 +31,27 @@ app.use(bodyParser.json())
 db.connect()
 
 
-app.get("/", async (req, res) => {
-  const response = await db.query("Select * from users");
-  const result = response.rows
+app.post("/", async (req, res) => {
+  const {username: queryUsername, password: queryPassword} = req.body
+  const response = await db.query("Select * from users where username=$1", [queryUsername]);
+  const result = response.rows[0]
   console.log(result)
-  users = result
-  console.log("A login was triggered")
-  res.json(users)
+  if (result) {
+    bcrypt.compare(queryPassword, result.password, (err, result) => {
+      if (err) {
+        res.sendStatus(500)
+        console.log(err)
+      } else {
+        if (result) {
+          res.sendStatus(200)
+        } else {
+          res.send("Incorrect password")
+        }
+      }
+    })
+  } else {
+    res.send("User not found")
+  }
 })
 
 app.get("/notes/:username", async (req, res) => {
@@ -55,11 +68,15 @@ app.post("/register", async (req, res) => {
   try {
     const {username: newUsername, password: newPassword} = req.body;
     const checkUser = await db.query("select * from users where username=$1", [newUsername])
-    // console.log(checkUser.rows)
     if (checkUser.rows.length === 0) {
-      currentID++;
-      await db.query("insert into users (username, password) values ($1, $2)", [newUsername, newPassword])
-      res.sendStatus(201)
+      bcrypt.hash(newPassword, saltRounds, async(err, hashedPassword) => {
+        if (err) {
+          res.sendStatus(404)
+        } else {
+          await db.query("insert into users (username, password) values ($1, $2)", [newUsername, hashedPassword])
+          res.sendStatus(201)
+        }
+      })
     } else {
       res.sendStatus(400)
     }

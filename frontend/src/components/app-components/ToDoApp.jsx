@@ -27,10 +27,14 @@ function ToDoApp (props) {
     setInput(value);
   }
 
-  async function handleAdd(event) {
-    await axios.post(api_url + "notes/add", {username: username, note: input});
-    setInput("")
-    getNotes()
+  async function handleAdd() {
+    if (input !== "") {
+      const newNote = input
+      setInput("");
+      await axios.post(api_url + "notes/add", {username: username, note: newNote});
+      getNotes()
+    }
+    
   }
 
   async function handleComplete(id) {

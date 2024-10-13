@@ -1,7 +1,16 @@
 :root {
   background-color: #1f2833;
   background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  color: #66fcf1;
 
+}
+
+html {
+  min-width: 100%;
+}
+
+body {
+  margin: 0;
 }
 
 .form{
@@ -43,9 +52,12 @@
   width: 100%;
 }
 
+.login-register {
+  font-size: 13px;
+}
 
 
-@media (max-width:920px) and (min-width:625px) {
+@media (max-width:970px) and (min-width:625px) {
   .welcome {
     font-size: 25px;
   }
@@ -60,7 +72,7 @@
   }
 }
 
-@media (max-width:624px) {
+@media (max-width:650px) {
   .login {
     width: 40%;
     margin: 200px 30%;
@@ -71,13 +83,8 @@
   }
 }
 
-@media (max-width:409px) {
-  .action {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .action button {
-    width: 100%;
+@media (max-width:490px) {
+  .login-register {
+    font-size: 10px;
   }
 }

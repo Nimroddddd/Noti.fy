@@ -41,35 +41,27 @@ function Login(props) {
 
   async function handleLogin() {
     try {
-      const response = await axios.get(api_url);
-      const users = response.data
-      try {
-        const currentUser = users.find(user => user.username == details.username)
-        const userPassword = currentUser.password
-        if (details.password == userPassword) {
-          props.authentication(currentUser.username)
-        } else {
-          // wrong password
-          setLoginError("Incorrect Password. Try again.")
-          setDetails({
-            username: details.username,
-            password: "",
-          })
-        }
-      } catch (err) {
-        // user not found
+      const response = await axios.post(api_url, details);
+      const result = response.data
+      if (result === "Incorrect password") {
+        setLoginError("Incorrect Password. Try again.")
+        setDetails({
+          username: details.username,
+          password: "",
+        })
+      } else if (result === "User not found") {
         setLoginError("User not found!")
         setDetails({
           username: "",
           password: "",
         })
+      } else {
+        props.authentication(details.username)
       }
     } catch (err) {
       // direct server down
       setLoginError("Server is down. Please try again later.")
     }
-    
-
   }
 
   async function handleRegister () {
@@ -159,7 +151,7 @@ function Login(props) {
           onKeyDown={handleEnter}
         /></Zoom>}
         <Button variant="contained" onClick={loginIntention ? handleLogin : handleRegister}>{loginIntention ? "Login" : "Register"}</Button>
-        {loginIntention ? <p>Don't have an account? <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>Sign up here.</a></p>: <p>Already have an account? <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>Login here.</a></p>}
+        <p className="login-register">{loginIntention ? "Don't have an account?" : "Already have an account?"} <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>{loginIntention ? "Sign up here." :"Login here" }</a></p>
         <ToastContainer />
     </div>
   )
