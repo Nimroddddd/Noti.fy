@@ -35,7 +35,7 @@ footer {
   height: 100%;
   border: 2px outset #45a29e;
   border-width: medium;
-  margin: 30px 25%;
+  margin: 30px auto;
   width: 50%;
   box-shadow: 1px 1px 8px;
   border-radius: 2%;
