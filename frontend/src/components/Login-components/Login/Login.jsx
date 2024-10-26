@@ -6,7 +6,7 @@ import { SplitText } from "./Welcome/SplitText";
 import Zoom from '@mui/material/Zoom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useForm } from "react-hook-form"
+import Loading from "./Loading/Loading";
 
 
 
@@ -15,8 +15,10 @@ const api_url = import.meta.env.VITE_SERVER_URL
 
 
 function Login(props) {
+
   const [loginError, setLoginError] = useState("")
   const [loginIntention, setLoginIntention] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const [details, setDetails] = useState({
     username: "",
@@ -40,6 +42,7 @@ function Login(props) {
   useEffect(() => {Notify()}, [loginError])
 
   async function handleLogin() {
+    setLoading(true)
     try {
       const response = await axios.post(api_url, details);
       const result = response.data
@@ -61,12 +64,16 @@ function Login(props) {
     } catch (err) {
       // direct server down
       setLoginError("Server is down. Please try again later.")
+    } finally {
+      setLoading(false)
     }
+    
   }
 
   async function handleRegister () {
     if (details.password === details.confirmPassword) {
       try {
+        setLoading(true)
         await axios.post(api_url + "register", details);
         setDetails({
           username: "",
@@ -88,6 +95,8 @@ function Login(props) {
         } else {
           setLoginError("User already exists!")
         }
+      } finally {
+        setLoading(false)
       }
     } else {
       setLoginError("Make sure you write the same password");
@@ -152,6 +161,7 @@ function Login(props) {
         /></Zoom>}
         <Button variant="contained" onClick={loginIntention ? handleLogin : handleRegister}>{loginIntention ? "Login" : "Register"}</Button>
         <p className="login-register">{loginIntention ? "Don't have an account?" : "Already have an account?"} <a href="register" onClick={handleRegisterClick} style={{color: "#66fcf1"}}>{loginIntention ? "Sign up here." :"Login here" }</a></p>
+        {loading && <Loading />}
         <ToastContainer />
     </div>
   )

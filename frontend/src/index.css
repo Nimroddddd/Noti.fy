@@ -56,6 +56,11 @@ body {
   font-size: 13px;
 }
 
+.loader p {
+  float: left;
+  margin-right: 10px;
+}
+
 
 @media (max-width:970px) and (min-width:625px) {
   .welcome {
